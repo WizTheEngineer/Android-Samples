@@ -28,7 +28,7 @@ public class GridLayoutManagerExampleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_grid_layout_manager);
         mGrid = findViewById(R.id.grid);
         mAddItemBtn = findViewById(R.id.add_item_btn);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        final GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         mAdapter = new GridAdapter(this, 0);
         layoutManager.setSpanSizeLookup(new CustomSpanSizeLookup(mAdapter));
         mGrid.setLayoutManager(layoutManager);
@@ -37,6 +37,7 @@ public class GridLayoutManagerExampleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mAdapter.addItem();
+                layoutManager.scrollToPosition(mAdapter.getItemCount() - 1);
             }
         });
     }
