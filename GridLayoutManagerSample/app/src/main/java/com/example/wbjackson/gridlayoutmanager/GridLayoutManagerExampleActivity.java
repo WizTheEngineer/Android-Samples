@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,17 +20,25 @@ public class GridLayoutManagerExampleActivity extends AppCompatActivity {
 
     private RecyclerView mGrid;
     private GridAdapter mAdapter;
+    private FloatingActionButton mAddItemBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid_layout_manager);
         mGrid = findViewById(R.id.grid);
+        mAddItemBtn = findViewById(R.id.add_item_btn);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        mAdapter = new GridAdapter(this, 3);
+        mAdapter = new GridAdapter(this, 0);
         layoutManager.setSpanSizeLookup(new CustomSpanSizeLookup(mAdapter));
         mGrid.setLayoutManager(layoutManager);
         mGrid.setAdapter(mAdapter);
+        mAddItemBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAdapter.addItem();
+            }
+        });
     }
 
     private class CustomSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
